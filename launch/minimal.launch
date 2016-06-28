@@ -1,0 +1,21 @@
+<launch>
+  <arg  default="$(find chairbot)/param/cmd_vel_mux.yaml" name="config_file"/>
+
+  <group ns="chairbot">
+    <node args="standalone yocs_cmd_vel_mux/CmdVelMuxNodelet" name="cmd_vel_mux" pkg="nodelet" type="nodelet">
+      <param  name="yaml_cfg_file" value="$(arg config_file)"/>
+      <remap  from="/chairbot/cmd_vel_mux/output/cmd_vel" to="cmd_vel"/>
+    </node>
+    <node name="driver" output="screen" pkg="chairbot" type="chairbot_node">
+      <param  name="IP_ADDR" value="192.168.11.96"/>
+      <!-- <param  name="IP_ADDR" value="192.168.11.99"/> -->
+      <param  name="turn_Kp" value="0.5"/>
+      <param  name="spin_Kp" value="1000"/>
+      <!-- <param  name="spin_Kp" value="3000"/> -->
+      <param  name="spin_Ki" value="100"/>
+      <!-- <param  name="spin_Ki" value="100"/> -->
+      <param  name="spin_Kd" value="0"/>
+      <!-- <param  name="spin_Kd" value="40000"/> -->
+    </node>
+  </group>
+</launch>
